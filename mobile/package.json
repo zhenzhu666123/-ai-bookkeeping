@@ -1,0 +1,18 @@
+{
+  "name": "ai-bookkeeping-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AI 家庭记账 App - Capacitor 打包配置",
+  "scripts": {
+    "build": "npx cap sync",
+    "open:android": "npx cap open android",
+    "doctor": "npx cap doctor"
+  },
+  "dependencies": {
+    "@capacitor/core": "^6.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/android": "^6.0.0"
+  }
+}

@@ -1,0 +1,11 @@
+services:
+  ai-bookkeeping:
+    build: .
+    container_name: ai-bookkeeping
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
+    restart: always

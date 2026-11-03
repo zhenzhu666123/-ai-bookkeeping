@@ -1,0 +1,14 @@
+# 不打包进 Docker 镜像的东西
+__pycache__
+*.pyc
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+data/*.db
+data/*.db-journal
+tests/
+mobile/
+README.md
+*.md
