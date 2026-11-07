@@ -115,9 +115,6 @@ def create_from_natural(req: NaturalLanguageEntryRequest,
     - stored: 是否成功入库
     - entry: 入库后的完整记录（含 id）
 
-    面试话术："这个接口背后是 5 层 JSON 正确性保障 + 规则兜底，
-    用户看到'source: fallback'就知道这次是规则命中的，
-    看到'source: llm'就知道走了大模型。透明可解释。"
     """
     return record_from_natural_language(db, req.text)
 

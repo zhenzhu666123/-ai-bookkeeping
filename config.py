@@ -7,10 +7,6 @@
 2. CI/CD 部署时环境变量覆盖 → 生产/测试环境不用改代码
 3. 默认值兜底 → 新人 git clone 下来 python main.py 零配置就能跑
 
-面试话术：
-"我用 pydantic-settings 做配置中心，遵循 12 要素应用原则。
-开发时看 .env，部署到服务器看环境变量，代码里全是默认值兜底。
-切 MySQL、切模型、改超时都是改一行配置，代码零修改。"
 """
 from __future__ import annotations
 

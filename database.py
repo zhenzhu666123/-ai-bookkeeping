@@ -8,10 +8,6 @@
 3. SQLite 需要 check_same_thread=False 让 FastAPI 多线程访问
 4. 用 FastAPI 的 yield 依赖注入，请求结束自动关连接
 
-面试话术：
-"数据库抽象层用 SQLAlchemy ORM，切数据源只改 DB_URL 一个环境变量。
-开发本地跑 SQLite（零依赖），部署到服务器切 MySQL。
-连接用 FastAPI 依赖注入管理生命周期，请求结束自动释放。"
 """
 from __future__ import annotations
 

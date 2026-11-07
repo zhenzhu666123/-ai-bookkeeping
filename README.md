@@ -209,50 +209,6 @@ pytest tests/ -v
 
 **测试不需要配置 LLM API Key**，验证的是核心业务逻辑。
 
-## 🚧 面试问答（3 个高频问题）
-
-### Q1: AI 生成的结果怎么保证是正确的 JSON？
-
-**5 层保障**，任何一层失败自动降级：
-
-1. **Prompt 层**：system prompt 里明确"必须返回严格 JSON，不要 markdown"，加 few-shot 示例
-2. **response_format 层**：调 API 时传 `response_format={"type":"json_object"}`，服务端保证返回合法 JSON
-3. **解析层**：`json.loads` 严格解析，兼容 markdown 包裹（```json ... ```），失败立即重试
-4. **Schema 层**：Pydantic 严格校验字段类型、必填、枚举值，失败重试（`settings.llm_max_retries` 次）
-5. **兜底层**：LLM 全部失败 → 走正则规则（`ai/fallback.py`）覆盖 80% 常见场景
-
-**代码位置**：`ai/intent.py`
-
-### Q2: RAG 怎么确保检索到对的知识？
-
-**4 层保障**：
-
-1. **同源 Embedding**：问题和文档用同一个 embedding 模型，避免向量空间不对齐
-2. **余弦相似度**：只看方向忽略量纲，归一化后点积 = 余弦值
-3. **Top-K + 阈值**：只返回 top-k，分数低于阈值不返回（避免 prompt 塞爆）
-4. **关键词兜底**：向量分数都低时自动降级到关键词命中（`ai/rag.py` 里 0.7 向量 + 0.3 关键词混合）
-
-**为什么关键词兜底有效**：家庭记账场景，"猪肉"两个字几乎一定出现在原文里，字面匹配比语义相似更准。
-
-**代码位置**：`ai/rag.py` + `ai/vector_store.py`
-
-### Q3: 简历很多地方都和环境变量挂钩，是为啥？
-
-**遵循 12 要素应用原则**，三级配置优先级：
-
-```
-环境变量 > .env 文件 > 代码默认值
-```
-
-- **本地开发**：`.env` 里填自己的 API Key，不提交 git
-- **团队共享**：每人 `.env` 各自填，代码共享
-- **生产部署**：CI/CD 用环境变量注入，代码零修改
-- **切换模型**：改 `LLM_BASE_URL` + `LLM_API_KEY` + `LLM_MODEL` 三个字段就行
-- **切换数据库**：改 `DB_URL` 一行（SQLite → MySQL）
-- **新人上手**：默认值兜底，`git clone` → `pip install` → `python main.py` 零配置就能跑
-
-**代码位置**：`config.py` 用 `pydantic-settings` 自动加载
-
 ## 📄 License
 
 MIT

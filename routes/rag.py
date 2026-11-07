@@ -2,7 +2,7 @@
 """
 RAG 搜索 API 路由。
 
-面试话术："这个项目 RAG 不是黑箱，响应里明确告诉你：
+RAG 检索路径透明，响应里明确告诉你：
 - mode: 这次是 vector（向量）、keyword（关键词）还是 hybrid（混合）
 - total_entries_scanned: 扫描了多少条
 用户能看到检索走的是哪条路径，出问题可以 debug。"

@@ -47,7 +47,7 @@ const API = 'https://你的后端域名.com';
 | 场景 | 填什么 |
 |---|---|
 | 电脑本地跑后端（同网络）| `http://192.168.1.100:8000`（替换成你电脑的局域网 IP，`ipconfig` 查） |
-| Cloudflare 隧道（面试临时用）| `https://xxxx.trycloudflare.com` |
+| Cloudflare 隧道（临时调试用）| `https://xxxx.trycloudflare.com` |
 | 云服务器部署 | `https://api.yourdomain.com` |
 
 > ⚠️ **打包后是跨域请求**，后端必须已开启 CORS（本项目 `main.py` 已开）。
@@ -150,4 +150,4 @@ npx cap sync        # 重新同步
 3. `npx cap open ios`（打开 Xcode）
 4. Xcode 签名后 Archive → App Store Connect 上传
 
-面试演示**用 debug APK 就够了**，不用上架。
+调试和内部演示**用 debug APK 就够了**，不用上架。

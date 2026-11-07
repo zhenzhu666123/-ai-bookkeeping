@@ -7,8 +7,6 @@ RAG 编排：把向量检索 + 关键词兜底 + LLM 可用判断 串起来。
 - remove_entry(entry_id)              # 删除索引
 - search(query, k)                    # 混合检索，返回结构化结果
 
-【面试话术】"RAG 怎么确保检索到对的知识？"
-
 我们的四层设计（对应 vector_store.py 的注释）：
 1. 同源 embedding 模型
 2. 余弦相似度
@@ -133,7 +131,7 @@ def _keyword_score(query: str, text: str) -> float:
     为什么不做真 BM25？
     1. 家庭记账一年几百条，性能没压力
     2. jieba 分词对"午饭"这种两字词有割裂风险（变成"午"+"饭"）
-    3. 面试时能清楚讲清"用简单关键词做兜底，生产可以换 BM25"
+    3. 生产数据量增大时，可以平滑替换为 BM25
     """
     if not query or not text:
         return 0.0
